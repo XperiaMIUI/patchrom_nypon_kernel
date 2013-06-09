@@ -1,0 +1,21 @@
+#
+# ADDITIONAL_DEFAULT_PROPERTIES
+#
+ro.setupwizard.mode=DISABLED
+#persist.sys.usb.config=mtp
+drm.service.enabled=true
+ro.semc.sim.bip.enabled=true
+ro.secure=0
+ro.allow.mock.location=0
+ro.debuggable=1
+persist.sys.usb.config=adb
+# Just for stupid error 7 on device
+ro.product.device=nypon
+ro.build.product=LT22i
+#
+# VERSION_PROPERTIES
+#
+ro.semc.version.sw=1254-4233
+ro.semc.version.sw_revision=6.2.A.0.400
+ro.semc.version.sw_variant=GENERIC
+ro.semc.version.sw_type=user

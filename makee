@@ -1,0 +1,6 @@
+rm -f ramdisk.gz
+rm -f boot2.img
+cd ramdisk
+find . | cpio -o -H newc | gzip > ../ramdisk.gz
+cd ..
+python mkelf.py -o boot.img Image@0x00008000 ramdisk.gz@0x01000000,ramdisk 3@cmdline
