@@ -1,5 +1,5 @@
 rm -f ramdisk.gz
-rm -f boot2.img
+rm -f boot.img
 cd ramdisk
 find . | cpio -o -H newc | gzip > ../ramdisk.gz
 cd ..
