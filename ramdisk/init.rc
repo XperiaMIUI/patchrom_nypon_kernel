@@ -312,18 +312,6 @@ on boot
     class_start core
     class_start main
 
-# launching whitebalance
-    start display_cc 
-
-# run rngd entropy generator to provide significant lag reduction
-    start rngd
-
-# DooMLoRD: init.d scripts support
-    start sysinitsupport
-
-    class_start core
-    class_start main
-
 on nonencrypted
     class_start late_start
 
@@ -350,18 +338,6 @@ on property:vold.decrypt=trigger_shutdown_framework
     class_reset late_start
     class_reset main
 
-# run rngd
-service rngd /sbin/rngd
-    user root
-    oneshot
-    disabled
-
-# DooMLoRD: new init.d scripts support
-service sysinitsupport /sbin/sysinitsupport.sh
-    class main
-    disabled
-    oneshot
-
 ## Daemon processes to be run by init.
 ##
 service ueventd /sbin/ueventd
@@ -376,9 +352,6 @@ service console /system/bin/sh
     group log
 
 on property:ro.debuggable=1
-    write /sys/class/android_usb/android0/enable 1
-    start adbd
-    setprop service.adb.root 1
     start console
 
 # adbd is controlled via property triggers in init.<platform>.usb.rc
@@ -522,14 +495,6 @@ service mdnsd /system/bin/mdnsd
     socket mdnsd stream 0660 mdnsr inet
     disabled
     oneshot
-
-# Whitebalance
-service display_cc /system/bin/display_color_calib
-    class main
-    user root
-    group graphics
-    oneshot
-    disabled
 
 service shelld /system/xbin/shelld
     class main

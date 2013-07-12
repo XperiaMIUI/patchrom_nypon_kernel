@@ -1,11 +1,116 @@
 #!/sbin/sh
 
+mkdir /emmc 0000 system system
+mkdir /datadata 0755 system system
+
 cat /sys/devices/platform/ab8500-i2c.0/ab8500-usb.0/boot_time_device > /sys/devices/platform/ab8500-i2c.0/ab8500-usb.0/boot_time_device
-setprop service.adb.root 1
-if [ -e /sbin/bootrec-device ]
-then
-  /sbin/bootrec-device
-fi
+
+echo 0 >/sys/class/android_usb/android0/enable
+echo 0FCE >/sys/class/android_usb/android0/idVendor
+echo 617E >/sys/class/android_usb/android0/idProduct
+echo "mass_storage,adb" >/sys/class/android_usb/android0/functions
+echo 1 >/sys/class/android_usb/android0/enable
+
+# trigger button-backlight
+cat /dev/input/event1 > /dev/keycheck&
+sleep 3
+
+# trigger red, orange, yellow, green, blue, purple LED :)
+echo '255' > /sys/devices/platform/nmk-i2c.2/i2c-2/2-0036/leds/red/brightness
+echo '0' > /sys/devices/platform/nmk-i2c.2/i2c-2/2-0036/leds/green/brightness
+echo '0' > /sys/devices/platform/nmk-i2c.2/i2c-2/2-0036/leds/blue/brightness
+echo '255' > /sys/class/leds/so34-led0/brightness
+echo '0' > /sys/class/leds/so34-led1/brightness
+echo '0' > /sys/class/leds/so34-led2/brightness
+usleep 200000
+echo '0' > /sys/devices/platform/nmk-i2c.2/i2c-2/2-0036/leds/red/brightness
+echo '0' > /sys/devices/platform/nmk-i2c.2/i2c-2/2-0036/leds/green/brightness
+echo '0' > /sys/devices/platform/nmk-i2c.2/i2c-2/2-0036/leds/blue/brightness
+echo '0' > /sys/class/leds/so34-led0/brightness
+echo '255' > /sys/class/leds/so34-led1/brightness
+echo '0' > /sys/class/leds/so34-led2/brightness
+usleep 200000
+echo '255' > /sys/devices/platform/nmk-i2c.2/i2c-2/2-0036/leds/red/brightness
+echo '50' > /sys/devices/platform/nmk-i2c.2/i2c-2/2-0036/leds/green/brightness
+echo '0' > /sys/devices/platform/nmk-i2c.2/i2c-2/2-0036/leds/blue/brightness
+echo '0' > /sys/class/leds/so34-led0/brightness
+echo '0' > /sys/class/leds/so34-led1/brightness
+echo '255' > /sys/class/leds/so34-led2/brightness
+usleep 200000
+echo '0' > /sys/devices/platform/nmk-i2c.2/i2c-2/2-0036/leds/red/brightness
+echo '0' > /sys/devices/platform/nmk-i2c.2/i2c-2/2-0036/leds/green/brightness
+echo '0' > /sys/devices/platform/nmk-i2c.2/i2c-2/2-0036/leds/blue/brightness
+echo '0' > /sys/class/leds/so34-led0/brightness
+echo '255' > /sys/class/leds/so34-led1/brightness
+echo '0' > /sys/class/leds/so34-led2/brightness
+usleep 200000
+echo '255' > /sys/devices/platform/nmk-i2c.2/i2c-2/2-0036/leds/red/brightness
+echo '255' > /sys/devices/platform/nmk-i2c.2/i2c-2/2-0036/leds/green/brightness
+echo '0' > /sys/devices/platform/nmk-i2c.2/i2c-2/2-0036/leds/blue/brightness
+echo '255' > /sys/class/leds/so34-led0/brightness
+echo '255' > /sys/class/leds/so34-led1/brightness
+echo '0' > /sys/class/leds/so34-led2/brightness
+usleep 200000
+echo '0' > /sys/devices/platform/nmk-i2c.2/i2c-2/2-0036/leds/red/brightness
+echo '0' > /sys/devices/platform/nmk-i2c.2/i2c-2/2-0036/leds/green/brightness
+echo '0' > /sys/devices/platform/nmk-i2c.2/i2c-2/2-0036/leds/blue/brightness
+echo '255' > /sys/class/leds/so34-led0/brightness
+echo '0' > /sys/class/leds/so34-led1/brightness
+echo '255' > /sys/class/leds/so34-led2/brightness
+usleep 200000
+echo '0' > /sys/devices/platform/nmk-i2c.2/i2c-2/2-0036/leds/red/brightness
+echo '255' > /sys/devices/platform/nmk-i2c.2/i2c-2/2-0036/leds/green/brightness
+echo '0' > /sys/devices/platform/nmk-i2c.2/i2c-2/2-0036/leds/blue/brightness
+echo '0' > /sys/class/leds/so34-led0/brightness
+echo '255' > /sys/class/leds/so34-led1/brightness
+echo '255' > /sys/class/leds/so34-led2/brightness
+usleep 200000
+echo '0' > /sys/devices/platform/nmk-i2c.2/i2c-2/2-0036/leds/red/brightness
+echo '0' > /sys/devices/platform/nmk-i2c.2/i2c-2/2-0036/leds/green/brightness
+echo '0' > /sys/devices/platform/nmk-i2c.2/i2c-2/2-0036/leds/blue/brightness
+echo '255' > /sys/class/leds/so34-led0/brightness
+echo '0' > /sys/class/leds/so34-led1/brightness
+echo '255' > /sys/class/leds/so34-led2/brightness
+usleep 200000
+echo '0' > /sys/devices/platform/nmk-i2c.2/i2c-2/2-0036/leds/red/brightness
+echo '0' > /sys/devices/platform/nmk-i2c.2/i2c-2/2-0036/leds/green/brightness
+echo '255' > /sys/devices/platform/nmk-i2c.2/i2c-2/2-0036/leds/blue/brightness
+echo '255' > /sys/class/leds/so34-led0/brightness
+echo '255' > /sys/class/leds/so34-led1/brightness
+echo '0' > /sys/class/leds/so34-led2/brightness
+usleep 200000
+echo '0' > /sys/devices/platform/nmk-i2c.2/i2c-2/2-0036/leds/red/brightness
+echo '0' > /sys/devices/platform/nmk-i2c.2/i2c-2/2-0036/leds/green/brightness
+echo '0' > /sys/devices/platform/nmk-i2c.2/i2c-2/2-0036/leds/blue/brightness
+echo '0' > /sys/class/leds/so34-led0/brightness
+echo '0' > /sys/class/leds/so34-led1/brightness
+echo '0' > /sys/class/leds/so34-led2/brightness
+usleep 200000
+echo '255' > /sys/devices/platform/nmk-i2c.2/i2c-2/2-0036/leds/red/brightness
+echo '0' > /sys/devices/platform/nmk-i2c.2/i2c-2/2-0036/leds/green/brightness
+echo '255' > /sys/devices/platform/nmk-i2c.2/i2c-2/2-0036/leds/blue/brightness
+echo '255' > /sys/class/leds/so34-led0/brightness
+echo '255' > /sys/class/leds/so34-led1/brightness
+echo '255' > /sys/class/leds/so34-led2/brightness
+usleep 200000
+
+# trigger vibration
+echo '200' > /sys/class/timed_output/vibrator/enable
+
+# disable button-backlight
+echo '0' > /sys/class/leds/so34-led0/brightness
+echo '0' > /sys/class/leds/so34-led1/brightness
+echo '0' > /sys/class/leds/so34-led2/brightness
+
+# disable LEDs
+echo '0' > /sys/devices/platform/nmk-i2c.2/i2c-2/2-0036/leds/red/brightness
+echo '0' > /sys/devices/platform/nmk-i2c.2/i2c-2/2-0036/leds/green/brightness
+echo '0' > /sys/devices/platform/nmk-i2c.2/i2c-2/2-0036/leds/blue/brightness
+
+cat /dev/input/event2 > /dev/keycheck &
+sleep 3
+
+kill -9 $!
 
 if [ -s /dev/keycheck -o -e /cache/recovery/boot ]
 then
@@ -21,15 +126,34 @@ then
   umount -l /data
   umount -l /cache
   umount -l /mnt/sdcard
+  umount -l /mnt/external-sd
   rm -r /sdcard
   rm -r /mnt/sdcard
+  rm -r /external-sd
+  rm -r /mnt/external-sd
   mkdir /sdcard
+  mkdir /external_sd
   mkdir /tmp
   rm /etc
   mkdir /etc
   cp /recovery.fstab /etc/recovery.fstab
-  /sbin/bootrec-device-fs
-  /sbin/recovery&
+
+  mount /dev/block/mmcblk0p14 /sdcard
+
+  echo 0 >/sys/class/android_usb/android0/enable
+  echo 0FCE >/sys/class/android_usb/android0/idVendor
+  echo 8146 >/sys/class/android_usb/android0/idProduct
+  echo "mass_storage,adb" >/sys/class/android_usb/android0/functions
+  echo 1 >/sys/class/android_usb/android0/enable
+
+  export LD_LIBRARY_PATH=/sbin/lib
+  export PATH=/sbin
+  /sbin/recovery &
+  DATUM=`date +"%H-%M-%S"`
+  cat /sys/socinfo/reset_reason >/sdcard/resetreason-$DATUM
+  cat /sys/socinfo/reset_code >>/sdcard/resetreason-$DATUM
+  cat /sys/socinfo/reset_tupe >>/sdcard/resetreason-$DATUM
 fi
 
-#continue booting
+export PATH=/vendor/bin:/system/sbin:/system/bin:/system/xbin
+export LD_LIBRARY_PATH=/vendor/lib:/system/lib:/lib:/usr/lib:/system/lib/ste_omxcomponents

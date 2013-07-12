@@ -21,9 +21,6 @@ on post-fs
 
 
 on early-boot
-    #start recovery
-    exec /sbin/bootrec
-
     # Start the offline charging (This blocks booting further in some cases)
     exec /system/bin/chargemon
 
@@ -167,11 +164,19 @@ on fs
 
     setprop ro.crypto.state unsupported
 
+    # start service that shows the graphics while checking filesystem.
+    start ffsckwait
+
     mount_all fstab.st-ericsson
+
+    # notify the service that starts the graphics to stop.
+    exec /sbin/ffsckwait e
 
     # FOTA must be started after partitions are mounted
     # and property service is initialized
     exec /sbin/fota-ua c
+
+    exec /sbin/bootrec
 
     # SEMC: Start the TrimArea Daemon and early TA-users
     class_start trimarea
@@ -397,6 +402,13 @@ service updatemiscta /system/bin/updatemiscta
     user root
     oneshot
 
+# SEMC: ffsckwait
+service ffsckwait /sbin/ffsckwait s
+    console
+    user root
+    oneshot
+    disabled
+
 service media /system/bin/logwrapper /system/bin/mediaserver
     class main
     user root
@@ -472,3 +484,8 @@ service hdmiproxyd /system/bin/hdmiproxyd
     group graphics
     socket hdmid stream 0660 system system
     socket hdmic stream 0660 system system
+
+service zram_start /system/bin/logwrapper /system/bin/zram_start.sh
+    class late_start
+    user root
+    oneshot
